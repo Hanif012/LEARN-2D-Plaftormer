@@ -6,14 +6,19 @@ public class DialogueTrigger : MonoBehaviour
 {
     public Dialogue dialogue;
     bool isInteractable;
+    DialogueManager dialogueManager;
+
+    void Start(){
+        dialogueManager = FindObjectOfType<DialogueManager>();
+    }
 
     public void TriggerDialogue(){
         // Debug.Log("Dialogue Triggered");
-        FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
+        dialogueManager.StartDialogue(dialogue);
     }
 
     void Update(){
-        if(Input.GetKeyDown(KeyCode.Z) && isInteractable){
+        if(Input.GetKeyDown(KeyCode.Z) && isInteractable&&dialogueManager.inDialogue == false){
             TriggerDialogue();
         }
     }
