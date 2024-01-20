@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
    
     public Rigidbody2D rb;
 
-    public BoxCollider2D playerCollider;
+    public CapsuleCollider2D playerCollider;
     public Animator animator;
     
     [SerializeField] float speed = 5f;
@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        playerCollider = GetComponent<BoxCollider2D>();
+        playerCollider = GetComponent<CapsuleCollider2D>();
     }
 
     // Update is called once per frame
