@@ -4,13 +4,18 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+   
     public Rigidbody2D rb;
 
     public BoxCollider2D playerCollider;
     public Animator animator;
+    
+    [SerializeField] float speed = 5f;
+    [SerializeField] float jumpForce = 10f;
+
+    public bool isJumpPressed = false;
     public bool facingRight = true;
     public Transform transform;
-    [SerializeField] float speed = 5f;
 
 
     // Start is called before the first frame update
@@ -23,11 +28,29 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.Space) && Mathf.Abs(rb.velocity.y) < 0.01f)
+        {
+            isJumpPressed = true;
+            animator.SetTrigger("nigger");
+            Debug.Log("Update Jump");
+        }  
     }
 
     void FixedUpdate()
     {
+         if (isJumpPressed)
+        {
+            Debug.Log("FixedUpdate Jump");
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);   
+            isJumpPressed = false;
+        }
+         if(rb.velocity.y < 0.02 &&rb.velocity.y > -0.02 ){
+            animator.SetBool("grounded",true);
+        }
+        else
+            animator.SetBool("grounded",false);
+
+        animator.SetFloat("yaxis",rb.velocity.y );
         float h = Input.GetAxis("Horizontal");
         if(h > 0 && !facingRight)
             Flip();
