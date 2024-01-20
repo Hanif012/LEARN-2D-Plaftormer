@@ -44,4 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4f05a68ebdda764daa9dd85cdb89a57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cursorTexture: {fileID: 2800000, guid: c027da0939e0dbc4d85420b20bc0cf41, type: 3}
+  cursorTexture: {fileID: 2800000, guid: eee2ea3fdc73c7543ab3d8563029ae97, type: 3}
