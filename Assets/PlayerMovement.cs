@@ -22,8 +22,6 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        playerCollider = GetComponent<BoxCollider2D>();
-        // CapsuleCollider2D childCollider = childObject.GetComponent<CapsuleCollider2D>();
         playerCollider = GetComponent<CapsuleCollider2D>();
     }
 
