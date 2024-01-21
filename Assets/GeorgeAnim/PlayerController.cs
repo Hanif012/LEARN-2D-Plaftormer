@@ -15,8 +15,9 @@ public class PlayerController : MonoBehaviour
 
     public bool isJumpPressed = false;
     public bool facingRight = true;
-    public Transform transform;
+    // public Transform transform;
     public GameObject childObject;
+    GameObject[] bones;
 
     // Start is called before the first frame update
     void Start()
@@ -28,47 +29,48 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && Mathf.Abs(rb.velocity.y) < 0.01f)
-        {
-            isJumpPressed = true;
-            animator.SetTrigger("nigger");
-            Debug.Log("Update Jump");
-        }  
-    }
-
-    void FixedUpdate()
-    {
-         if (isJumpPressed)
-        {
-            Debug.Log("FixedUpdate Jump");
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);   
-            isJumpPressed = false;
-        }
-         if(rb.velocity.y < 0.02 &&rb.velocity.y > -0.02 ){
-            animator.SetBool("grounded",true);
-        }
-        else
-            animator.SetBool("grounded",false);
-
-        animator.SetFloat("yaxis",rb.velocity.y );
         if(Input.GetKeyDown(KeyCode.Z)){
             ragdoll=!ragdoll;
         }
+
         if(ragdoll){
             // childCollider.enabled = false;
             animator.enabled=false;
         }
         else{
-           animator.enabled=true;
-           
+            if (Input.GetKeyDown(KeyCode.Space) && Mathf.Abs(rb.velocity.y) < 0.01f)
+            {
+                isJumpPressed = true;
+                animator.SetTrigger("nigger");
+                Debug.Log("Update Jump");
+            } 
+            // animator.enabled=true;
         }
-        float h = Input.GetAxis("Horizontal");
-        if(h > 0 && !facingRight)
-            Flip();
-        else if(h < 0 && facingRight)
-            Flip();
-        PlayerMovement();
-        
+        animator.SetFloat("yaxis",rb.velocity.y );
+    }
+
+    void FixedUpdate()
+    {
+        if(!ragdoll){
+            if (isJumpPressed)
+            {
+                Debug.Log("FixedUpdate Jump");
+                rb.velocity = new Vector2(rb.velocity.x, jumpForce);   
+                isJumpPressed = false;
+            }
+            if(rb.velocity.y < 0.02 &&rb.velocity.y > -0.02 ){
+                animator.SetBool("grounded",true);
+            }
+            else
+                animator.SetBool("grounded",false);
+            
+            float h = Input.GetAxis("Horizontal");
+            if(h > 0 && !facingRight)
+                Flip();
+            else if(h < 0 && facingRight)
+                Flip();
+            PlayerMovement();
+        }
     }
 
     void PlayerMovement()
