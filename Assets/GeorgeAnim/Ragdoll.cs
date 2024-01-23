@@ -6,6 +6,7 @@ public class Ragdoll : MonoBehaviour
 {
     public PlayerController script;
     bool movedBone = false;
+    Rigidbody2D playerRb;
 
     // Update is called once per frame
     void Update()
@@ -13,9 +14,10 @@ public class Ragdoll : MonoBehaviour
         if(script.ragdoll){
             // Debug.Log("Ragdoll");
             this.transform.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+            playerRb = script.rb;
             
             if(!movedBone){
-                this.transform.GetComponent<Rigidbody2D>().velocity = script.rb.velocity + new Vector2(Random.Range(-1f,1f), Random.Range(-1f,1f));
+                this.transform.GetComponent<Rigidbody2D>().velocity = playerRb.velocity + new Vector2(Random.Range(-playerRb.velocity.x,playerRb.velocity.x), Random.Range(-playerRb.velocity.y,playerRb.velocity.y));
                 movedBone = true;
                 if(this.transform.name == "bone_1"){
                     this.transform.position = script.transform.position;
