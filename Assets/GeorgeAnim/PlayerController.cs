@@ -16,7 +16,6 @@ public class PlayerController : MonoBehaviour
     public bool isJumpPressed = false;
     public bool facingRight = true;
     // public Transform transform;
-    public GameObject childObject;
     GameObject[] bones;
 
     // Start is called before the first frame update
@@ -91,5 +90,14 @@ public class PlayerController : MonoBehaviour
         Vector3 theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
+    }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log("Trigger Entered");
+        if(other.tag == "enemy")
+        {
+            Debug.Log("Trigger enemy Entered");
+            ragdoll = true;
+        }
     }
 }
